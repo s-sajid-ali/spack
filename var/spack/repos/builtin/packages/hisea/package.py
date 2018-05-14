@@ -21,28 +21,23 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-#############################################################################
+##############################################################################
 from spack import *
 
 
-class Genometools(MakefilePackage):
-    """genometools is a free collection of bioinformatics tools (in the realm
-       of genome informatics) combined into a single binary named gt."""
+class Hisea(MakefilePackage):
+    """HISEA is an efficient all-vs-all long read aligner for SMRT sequencing
+       data. Its algorithm is designed to produce highest alignment sensitivity
+       among others."""
 
-    homepage = "http://genometools.org/"
-    url      = "http://genometools.org/pub/genometools-1.5.9.tar.gz"
+    homepage = "https://doi.org/10.1186/s12859-017-1953-9"
+    url      = "https://github.com/lucian-ilie/HISEA"
 
-    version('1.5.9', 'e400d69092f9f13db09b33f9dea39d2e')
+    version('2017.12.26', '54211bdc33b7ce52a8f1e76845935eb8',
+            url='https://github.com/lucian-ilie/HISEA/tarball/39e01e98caa0f2101da806ca59306296effe789c')
 
-    depends_on('perl', type=('build', 'run'))
-    depends_on('cairo')
-    depends_on('pango')
-
-    # build fails with gcc 7"
-    conflicts('%gcc@7.1.0:')
+    depends_on('boost')
 
     def install(self, spec, prefix):
-        make('install', 'prefix=%s' % prefix)
-
-    def setup_dependent_environment(self, spack_env, run_env, dependent_spec):
-        spack_env.set('CPATH', self.prefix.include.genometools)
+        mkdirp(prefix.bin)
+        install('hisea', prefix.bin)

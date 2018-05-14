@@ -1,6 +1,6 @@
 ##############################################################################
-# Copyright (c) 2013-2018, Lawrence Livermore National Security, LLC.
-# Produced at the Lawrence Livermore National Laboratory.
+# Copyright (c) 2018, Los Alamos National Security, LLC
+# Produced at the Los Alamos National Laboratory.
 #
 # This file is part of Spack.
 # Created by Todd Gamblin, tgamblin@llnl.gov, All rights reserved.
@@ -21,28 +21,18 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-#############################################################################
+##############################################################################
 from spack import *
 
 
-class Genometools(MakefilePackage):
-    """genometools is a free collection of bioinformatics tools (in the realm
-       of genome informatics) combined into a single binary named gt."""
+class Charliecloud(MakefilePackage):
+    """Lightweight user-defined software stacks for HPC."""
 
-    homepage = "http://genometools.org/"
-    url      = "http://genometools.org/pub/genometools-1.5.9.tar.gz"
+    homepage = "https://hpc.github.io/charliecloud"
+    url      = "https://github.com/hpc/charliecloud/archive/v0.2.4.tar.gz"
 
-    version('1.5.9', 'e400d69092f9f13db09b33f9dea39d2e')
+    version('0.2.4', 'b112de661c2c360174b42c99022c1967')
 
-    depends_on('perl', type=('build', 'run'))
-    depends_on('cairo')
-    depends_on('pango')
-
-    # build fails with gcc 7"
-    conflicts('%gcc@7.1.0:')
-
-    def install(self, spec, prefix):
-        make('install', 'prefix=%s' % prefix)
-
-    def setup_dependent_environment(self, spack_env, run_env, dependent_spec):
-        spack_env.set('CPATH', self.prefix.include.genometools)
+    @property
+    def install_targets(self):
+        return ['install', 'PREFIX=%s' % self.prefix]
