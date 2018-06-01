@@ -32,7 +32,7 @@ class PyMatplotlib(PythonPackage):
     environments across platforms."""
 
     homepage = "https://pypi.python.org/pypi/matplotlib"
-    url      = "https://pypi.io/packages/source/m/matplotlib/matplotlib-2.0.2.tar.gz"
+    url      = "https://github.com/s-sajid-ali/matplotlib/archive/patch_intel.tar.gz"
 
     version('2.2.2', 'dd1e49e041309a7fd4e32be8bf17c3b6')
     version('2.0.2', '061111784278bde89b5d4987014be4ca')
