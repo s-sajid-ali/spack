@@ -30,7 +30,7 @@ class PyH5py(PythonPackage):
     HDF5 library from Python."""
 
     homepage = "https://pypi.python.org/pypi/h5py"
-    url      = "https://pypi.io/packages/source/h/h5py/h5py-2.4.0.tar.gz"
+    url      = "https://github.com/h5py/h5py/archive/master.tar.gz"
 
     version('2.7.1', 'da630aebe3ab9fa218ac405a218e95e0')
     version('2.7.0', 'f62937f40f68d3b128b3941be239dd93')
