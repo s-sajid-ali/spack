@@ -25,13 +25,14 @@
 from spack import *
 
 
-class PySympy(PythonPackage):
-    """SymPy is a Python library for symbolic mathematics."""
-    homepage = "https://pypi.python.org/pypi/sympy"
-    url      = "https://pypi.io/packages/source/s/sympy/sympy-0.7.6.tar.gz"
+class PyAvroJsonSerializer(PythonPackage):
+    """Serializes data into a JSON format using AVRO schema."""
 
-    version('1.1.1', 'c410a9c2346878716d16ec873d72e72a')
-    version('1.0', '43e797de799f00f9e8fd2307dba9fab1')
-    version('0.7.6', '3d04753974306d8a13830008e17babca')
+    homepage = "https://github.com/linkedin/python-avro-json-serializer"
+    url      = "https://github.com/linkedin/python-avro-json-serializer/archive/0.4.tar.gz"
 
-    depends_on('py-mpmath', when='@1.0:', type=('build', 'run'))
+    version('0.4',  'ee32f415e03820653cf8477bf5bfc779')
+
+    depends_on('py-setuptools', type='build')
+    depends_on('py-simplejson', type=('build', 'run'))
+    depends_on('py-avro', type=('build', 'run'))

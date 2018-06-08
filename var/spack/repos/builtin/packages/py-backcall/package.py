@@ -25,13 +25,11 @@
 from spack import *
 
 
-class PySympy(PythonPackage):
-    """SymPy is a Python library for symbolic mathematics."""
-    homepage = "https://pypi.python.org/pypi/sympy"
-    url      = "https://pypi.io/packages/source/s/sympy/sympy-0.7.6.tar.gz"
+class PyBackcall(PythonPackage):
+    """Specifications for callback functions passed in to an API"""
 
-    version('1.1.1', 'c410a9c2346878716d16ec873d72e72a')
-    version('1.0', '43e797de799f00f9e8fd2307dba9fab1')
-    version('0.7.6', '3d04753974306d8a13830008e17babca')
+    homepage = "https://github.com/takluyver/backcall"
+    url = "https://pypi.io/packages/source/b/backcall/backcall-0.1.0.tar.gz"
 
-    depends_on('py-mpmath', when='@1.0:', type=('build', 'run'))
+    version('0.1.0', '87ce0c7839808e6a3427d57df6a792e7')
+    depends_on('python@3.4:')

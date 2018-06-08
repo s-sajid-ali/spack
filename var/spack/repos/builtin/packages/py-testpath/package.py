@@ -22,16 +22,14 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ##############################################################################
+
 from spack import *
 
 
-class PySympy(PythonPackage):
-    """SymPy is a Python library for symbolic mathematics."""
-    homepage = "https://pypi.python.org/pypi/sympy"
-    url      = "https://pypi.io/packages/source/s/sympy/sympy-0.7.6.tar.gz"
+class PyTestpath(PythonPackage):
+    """Test utilities for Python code working with files and commands"""
 
-    version('1.1.1', 'c410a9c2346878716d16ec873d72e72a')
-    version('1.0', '43e797de799f00f9e8fd2307dba9fab1')
-    version('0.7.6', '3d04753974306d8a13830008e17babca')
+    homepage = "https://github.com/jupyter/testpath"
+    url = "https://files.pythonhosted.org/packages/f4/8b/b71e9ee10e5f751e9d959bc750ab122ba04187f5aa52aabdc4e63b0e31a7/testpath-0.3.1.tar.gz"
 
-    depends_on('py-mpmath', when='@1.0:', type=('build', 'run'))
+    version('0.3.1', '2cd5ed5522fda781bb497c9d80ae2fc9')

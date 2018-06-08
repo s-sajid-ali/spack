@@ -22,16 +22,17 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ##############################################################################
-from spack import *
+import pytest
+
+from spack.main import SpackCommand
+
+mirror = SpackCommand('mirror')
 
 
-class PySympy(PythonPackage):
-    """SymPy is a Python library for symbolic mathematics."""
-    homepage = "https://pypi.python.org/pypi/sympy"
-    url      = "https://pypi.io/packages/source/s/sympy/sympy-0.7.6.tar.gz"
-
-    version('1.1.1', 'c410a9c2346878716d16ec873d72e72a')
-    version('1.0', '43e797de799f00f9e8fd2307dba9fab1')
-    version('0.7.6', '3d04753974306d8a13830008e17babca')
-
-    depends_on('py-mpmath', when='@1.0:', type=('build', 'run'))
+@pytest.mark.disable_clean_stage_check
+@pytest.mark.regression('8083')
+def test_regression_8083(tmpdir, capfd, mock_packages, mock_fetch, config):
+    with capfd.disabled():
+        output = mirror('create', '-d', str(tmpdir), 'externaltool')
+    assert 'Skipping' in output
+    assert 'as it is an external spec' in output
