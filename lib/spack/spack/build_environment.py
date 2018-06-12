@@ -72,12 +72,17 @@ import spack.paths
 import spack.store
 from spack.environment import EnvironmentModifications, validate
 <<<<<<< HEAD
+<<<<<<< HEAD
 from spack.environment import preserve_environment
 from spack.util.environment import env_flag, filter_system_paths, get_path
 =======
 from spack.util.environment import (
     env_flag, filter_system_paths, get_path, is_system_path)
 >>>>>>> 5479afc816a71aa37aa7e67b76ff7254f89673a4
+=======
+from spack.util.environment import (
+    env_flag, filter_system_paths, get_path, is_system_path)
+>>>>>>> scheibelp/features/custom-includes
 from spack.util.executable import Executable
 from spack.util.module_cmd import load_module, get_path_from_module
 from spack.util.log_parse import parse_log_events, make_log_context
