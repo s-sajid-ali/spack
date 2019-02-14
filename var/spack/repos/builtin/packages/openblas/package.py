@@ -14,8 +14,8 @@ class Openblas(MakefilePackage):
     """OpenBLAS: An optimized BLAS library"""
 
     homepage = 'http://www.openblas.net'
-    url      = 'http://github.com/xianyi/OpenBLAS/archive/v0.2.19.tar.gz'
-    git      = 'https://github.com/xianyi/OpenBLAS.git'
+    url      = 'http://github.com/s-sajid-ali/OpenBLAS/archive/v0.2.19.tar.gz'
+    git      = 'https://github.com/s-sajid-ali/OpenBLAS.git'
 
     version('develop', branch='develop')
     version('0.3.5', sha256='0950c14bd77c90a6427e26210d6dab422271bc86f9fc69126725833ecdaa0e85')
