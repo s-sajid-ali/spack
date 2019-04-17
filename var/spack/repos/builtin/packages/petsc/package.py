@@ -21,8 +21,7 @@ class Petsc(Package):
 
     maintainers = ['balay', 'barrysmith', 'jedbrown']
 
-    version('develop', branch='master')
-    version('bugfix-vecduplicate-fftw-vec',branch='bugfix-vecduplicate-fftw-vec')
+    version('develop',branch='bugfix-vecduplicate-fftw-vec')
     version('xsdk-0.2.0', tag='xsdk-0.2.0')
 
     version('3.11.1', 'cb627f99f7ce1540ebbbf338189f89a5f1ecf3ab3b5b0e357f9e46c209f1fb23')
