@@ -25,9 +25,14 @@ class Jdk(Package):
     # command-line options. See:
     # http://stackoverflow.com/questions/10268583/how-to-automate-download-and-installation-of-java-jdk-on-linux
     curl_options = [
-        '-j',  # junk cookies
+        '-L',  # If the server reports that the requested page has moved to a
+               # different location (indicated with a Location: header and a 
+               # 3XX response code), this option will make curl redo the
+               # request on the new place.
+        '-C -' # Continue/Resume a previous file transfer at the given offset. 
+        '-O'   # Write output to a local file named like the remote file we get.
         '-b',  # specify required License Agreement cookie
-        'oraclelicense=accept-securebackup-cookie'
+        "oraclelicense=accept-securebackup-cookie"
     ]
 
     # To add the latest version, go to the homepage listed above,
