@@ -17,11 +17,11 @@ class Petsc(Package):
 
     homepage = "http://www.mcs.anl.gov/petsc/index.html"
     url      = "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.5.3.tar.gz"
-    git      = "https://gitlab.com/petsc/petsc.git"
+    git      = "https://gitlab.com/sajid-ali/petsc.git"
 
     maintainers = ['balay', 'barrysmith', 'jedbrown']
 
-    version('develop', branch='master')
+    version('develop', branch='3_12_3_fixcompjac')
     version('xsdk-0.2.0', tag='xsdk-0.2.0')
 
     version('3.12.3', sha256='91f77d7b0f54056f085b9e27938922db3d9bb1734a2e2a6d26f43d3e6c0cf631')
