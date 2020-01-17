@@ -295,7 +295,8 @@ class PyTensorflow(Package):
             # For an explanation for ABI build option, see https://www.tensorflow.org/install/source#bazel_build_options
             # Recently noticed that TF_NEED_AWS etc environment variables aren't recognized by configure.py anymore.
             # So, explicitly disable them via bazel options.
-            if self.spec.satisfies('@2.1.0-rc0'):
+            if self.spec.satisfies('@2.1.0-rc0') or self.spec.satisfies('@1.14.0'):
+
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=cuda', '--config=noaws', '--config=nogcp',\
@@ -311,7 +312,7 @@ class PyTensorflow(Package):
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '//tensorflow/tools/pip_package:build_pip_package')
         else:
-            if self.spec.satisfies('@2.1.0-rc0'):
+            if self.spec.satisfies('@2.1.0-rc0') or self.spec.satisfies('@1.14.0'):
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp', '--config=nohdfs',\
