@@ -106,6 +106,12 @@ class PyTensorflow(Package):
 
         # CUDA related config options - note: tf has only been tested for cpu
         if '+cuda' in spec:
+
+            cuda_paths = [spec['cuda'].prefix,spec['cudnn'].prefix,]
+
+            if '+nccl' in spec:
+                cuda_paths.append(spec['nccl'].prefix)
+
             env.set('GCC_HOST_COMPILER_PATH',self.compiler.cc) #TODO double check if this is still necessary
             env.set('TF_NEED_CUDA','1')
             env.set('TF_CUDA_VERSION',str(spec['cuda'].version.up_to(2)))
@@ -113,9 +119,10 @@ class PyTensorflow(Package):
             # TODO also consider the case of cuda enabled but nccl disabled
             env.set('TF_NCCL_VERSION',str(spec['nccl'].version.up_to(1)))
             if self.spec.satisfies('@1.14.0:'):
-                env.set('TF_CUDA_PATHS','"' + ','.join([str(spec['cuda'].prefix),
-                                        str(spec['nccl'].prefix),
-                                        str(spec['cudnn'].prefix)])+'"')
+                env.set('TF_CUDA_PATHS', ','.join(cuda_paths))
+                #env.set('TF_CUDA_PATHS','"' + ','.join([str(spec['cuda'].prefix),
+                #                        str(spec['nccl'].prefix),
+                #                        str(spec['cudnn'].prefix)])+'"')
             env.set('CUDA_TOOLKIT_PATH',str(spec['cuda'].prefix))
             env.set('CUDNN_INSTALL_PATH',str(spec['cudnn'].prefix)) # ignored? as of tf@1.14.0:
             # TODO: create a string valued variant for compute capabilities?
@@ -184,7 +191,7 @@ class PyTensorflow(Package):
         #           subprocess.call(['stat', '--file-system', '--format=%T', tmp_path]) # noqa: E501
         #       to not be nfs. This is only valid for Linux and we'd like to
         #       stay at least also OSX compatible
-        tmp_path = '/cache/spack/tf'
+        tmp_path = '/raid/home/sajid/tf_build/tf'
 #        tmp_path = env['SPACK_TMPDIR'] '/tmp/spack') + '/tf' #TODO
         mkdirp(tmp_path)
         env.set('TEST_TMPDIR', tmp_path)
