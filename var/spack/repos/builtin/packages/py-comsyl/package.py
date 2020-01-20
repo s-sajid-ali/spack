@@ -14,8 +14,8 @@ class PyComsyl(PythonPackage):
     of the X-ray beam at any point of the beamline are completely given in
     terms of the eigenvalues and coherent modes of the cross spectral density."""
 
-    homepage = "https://github.com/mark-glass/comsyl"
-    git      = "https://github.com/mark-glass/comsyl.git"
+    homepage = "https://github.com/s-sajid-ali/comsyl"
+    git      = "https://github.com/s-sajid-ali/comsyl.git"
 
     import_modules = ['autocorrelation',
                       'calculations',
