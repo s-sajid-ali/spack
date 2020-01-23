@@ -14,7 +14,7 @@ class PyTensorflow(Package):
     homepage = "https://www.tensorflow.org"
     url      = "https://github.com/tensorflow/tensorflow/archive/v0.10.0.tar.gz"
 
-
+    version('2.1.0',        sha256='638e541a4981f52c69da4a311815f1e7989bf1d67a41d204511966e1daed14f7')
     version('2.1.0-rc0',    sha256='674cc90223f1d6b7fa2969e82636a630ce453e48a9dec39d73d6dba2fd3fd243')
     version('2.0.0',        sha256='49b5f0495cd681cbcb5296a4476853d4aea19a43bdd9f179c928a977308a0617')
     version('1.15.0',       sha256='a5d49c00a175a61da7431a9b289747d62339be9cf37600330ad63b611f7f5dc9')
@@ -184,7 +184,8 @@ class PyTensorflow(Package):
         #           subprocess.call(['stat', '--file-system', '--format=%T', tmp_path]) # noqa: E501
         #       to not be nfs. This is only valid for Linux and we'd like to
         #       stay at least also OSX compatible
-        tmp_path = '/cache/spack/tf'
+        tmp_path = '/home/sajid/jobs/tf_build/tf'
+
 #        tmp_path = env['SPACK_TMPDIR'] '/tmp/spack') + '/tf' #TODO
         mkdirp(tmp_path)
         env.set('TEST_TMPDIR', tmp_path)
@@ -312,8 +313,10 @@ class PyTensorflow(Package):
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '//tensorflow/tools/pip_package:build_pip_package')
         else:
-            if self.spec.satisfies('@2.1.0-rc0') or self.spec.satisfies('@1.14.0'):
+            if self.spec.satisfies('@2.1.0') or self.spec.satisfies('@1.14.0'):
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
+                    '--copt=-march=knl',\
+                    '--copt=-mavx512f','--copt=-mavx512pf','--copt=-mavx512er','--copt=-mavx512cd',\
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp', '--config=nohdfs',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
