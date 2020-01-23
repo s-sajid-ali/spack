@@ -14,7 +14,7 @@ class PyTensorflow(Package):
     homepage = "https://www.tensorflow.org"
     url      = "https://github.com/tensorflow/tensorflow/archive/v0.10.0.tar.gz"
 
-
+    version('2.1.0',  sha256='638e541a4981f52c69da4a311815f1e7989bf1d67a41d204511966e1daed14f7')
     version('2.1.0-rc0',    sha256='674cc90223f1d6b7fa2969e82636a630ce453e48a9dec39d73d6dba2fd3fd243')
     version('2.0.0',        sha256='49b5f0495cd681cbcb5296a4476853d4aea19a43bdd9f179c928a977308a0617')
     version('1.15.0',       sha256='a5d49c00a175a61da7431a9b289747d62339be9cf37600330ad63b611f7f5dc9')
@@ -47,6 +47,7 @@ class PyTensorflow(Package):
     depends_on('swig', type='build')
 
     # old tensorflow needs old bazel
+    depends_on('bazel@0.29.1',   type='build', when='@2.1.0')
     depends_on('bazel@0.27.1:0.29.1',   type='build', when='@2.1.0-rc0')
     depends_on('bazel@0.24.1:0.26.1',   type='build', when='@1.15.0,2.0.0')
     depends_on('bazel@0.24.1:0.25.2',   type='build', when='@1.14.0')
@@ -61,18 +62,19 @@ class PyTensorflow(Package):
     depends_on('py-absl-py@0.1.6',       type=('build', 'run'), when='@1.5.0:')
     depends_on('py-astor@0.1.6:',        type=('build', 'run'), when='@1.6.0:')
     depends_on('py-enum34@1.1.6:',       type=('build', 'run'), when='@1.5.0: ^python@:3.3')
-    depends_on('py-future@0.17.1:',      type=('build', 'run'), when='@1.14.0:')
+    #depends_on('py-future@0.17.1:',      type=('build', 'run'), when='@1.14.0:')
     depends_on('py-gast@0.2.0:',         type=('build', 'run'), when='@1.6.0:')
     depends_on('py-google-pasta@0.1.2:', type=('build', 'run'), when='@2.0.0:')
     depends_on('py-grpcio@1.8.6:',       type=('build', 'run'), when='@1.6.0:')
     depends_on('py-h5py',                type=('build', 'run'), when='@1.12.0:')
     depends_on('py-keras-applications@1.0.6:',  type=('build', 'run'), when='@1.12.0:')  # noqa: E501
     depends_on('py-keras-preprocessing@1.0.5:', type=('build', 'run'), when='@1.12.0:')  # noqa: E501
-    depends_on('py-mock@2.0.0:',      type=('build', 'run'))
+    #depends_on('py-mock@2.0.0:',      type=('build', 'run'))
     depends_on('py-numpy@1.11.0:',    type=('build', 'run'))
     depends_on('py-protobuf@3.0.0b2', type=('build', 'run'), when='@:1.2.0')
     depends_on('py-protobuf@3.3.0:',  type=('build', 'run'), when='@1.3.0:1.6.0')        # noqa: E501
-    depends_on('py-protobuf@3.6.0',   type=('build', 'run'), when='@1.8.0:')
+    #depends_on('py-protobuf@3.6.0',   type=('build', 'run'), when='@1.8.0:')
+    depends_on('py-protobuf@3.8.0:', type=('build', 'run'), when='@2.1:')
     depends_on('py-setuptools',       type=('build', 'run'))
     depends_on('py-six@1.10.0:',      type=('build', 'run'))
     depends_on('py-termcolor@1.1.0:', type=('build', 'run'), when='@1.6.0:')
@@ -312,8 +314,10 @@ class PyTensorflow(Package):
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '//tensorflow/tools/pip_package:build_pip_package')
         else:
-            if self.spec.satisfies('@2.1.0-rc0') or self.spec.satisfies('@1.14.0'):
+            if self.spec.satisfies('@2.1.0') or self.spec.satisfies('@1.14.0'):
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
+                    '--copt=-march=native',\
+                    '--copt=-mavx512f','--copt=-mavx512vl','--copt=-mavx512bw','--copt=-mavx512dq','--copt=-mavx512cd',\
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp', '--config=nohdfs',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
