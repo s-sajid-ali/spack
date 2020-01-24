@@ -95,12 +95,6 @@ class PyTensorflow(Package):
 
     phases = ['config', 'install']
 
-    cuda_paths = [spec['cuda'].prefix,spec['cudnn'].prefix,]
-
-    if '+nccl' in spec:
-        cuda_paths.append(spec['nccl'].prefix)
-
-
     def setup_build_environment(self, env):
         spec = self.spec
         prefix = self.spec.prefix
@@ -116,6 +110,11 @@ class PyTensorflow(Package):
 
         # CUDA related config options - note: tf has only been tested for cpu
         if '+cuda' in spec:
+            cuda_paths = [spec['cuda'].prefix,spec['cudnn'].prefix,]
+
+            if '+nccl' in spec:
+                cuda_paths.append(spec['nccl'].prefix)
+
             env.set('GCC_HOST_COMPILER_PATH',self.compiler.cc) #TODO double check if this is still necessary
             env.set('TF_NEED_CUDA','1')
             env.set('TF_CUDA_VERSION',str(spec['cuda'].version.up_to(2)))
