@@ -304,7 +304,7 @@ class PyTensorflow(Package):
             # So, explicitly disable them via bazel options.
             if self.spec.satisfies('@2.1.0-rc0'):
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
-                    '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
+                    '--copt=-mavx','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=cuda', '--config=noaws', '--config=nogcp',\
                     '--config=nohdfs',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
@@ -320,7 +320,7 @@ class PyTensorflow(Package):
         else:
             if self.spec.satisfies('@2.1.0-rc0'):
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
-                    '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
+                    '--copt=-mavx','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp', '--config=nohdfs',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '--define=tensorflow_mkldnn_contraction_kernel=0',\
