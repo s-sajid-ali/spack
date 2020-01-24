@@ -47,6 +47,7 @@ class PyTensorflow(Package):
     depends_on('swig', type='build')
 
     # old tensorflow needs old bazel
+    depends_on('bazel@0.29.1',   type='build', when='@2.1.0')
     depends_on('bazel@0.27.1:0.29.1',   type='build', when='@2.1.0-rc0')
     depends_on('bazel@0.24.1:0.26.1',   type='build', when='@1.15.0,2.0.0')
     depends_on('bazel@0.24.1:0.25.2',   type='build', when='@1.14.0')
@@ -58,21 +59,22 @@ class PyTensorflow(Package):
     depends_on('bazel@0.4.4:0.4.999',   type='build', when='@1.0.0:1.1.0')
     depends_on('bazel@0.3.1:0.4.999',   type='build', when='@:1.0.0')
 
-    depends_on('py-absl-py@0.1.6',       type=('build', 'run'), when='@1.5.0:')
+    depends_on('py-absl-py@0.1.6:',       type=('build', 'run'), when='@1.5.0:')
     depends_on('py-astor@0.1.6:',        type=('build', 'run'), when='@1.6.0:')
     depends_on('py-enum34@1.1.6:',       type=('build', 'run'), when='@1.5.0: ^python@:3.3')
-    depends_on('py-future@0.17.1:',      type=('build', 'run'), when='@1.14.0:')
+    #depends_on('py-future@0.17.1:',      type=('build', 'run'), when='@1.14.0:')
     depends_on('py-gast@0.2.0:',         type=('build', 'run'), when='@1.6.0:')
     depends_on('py-google-pasta@0.1.2:', type=('build', 'run'), when='@2.0.0:')
     depends_on('py-grpcio@1.8.6:',       type=('build', 'run'), when='@1.6.0:')
     depends_on('py-h5py',                type=('build', 'run'), when='@1.12.0:')
     depends_on('py-keras-applications@1.0.6:',  type=('build', 'run'), when='@1.12.0:')  # noqa: E501
     depends_on('py-keras-preprocessing@1.0.5:', type=('build', 'run'), when='@1.12.0:')  # noqa: E501
-    depends_on('py-mock@2.0.0:',      type=('build', 'run'))
+    #depends_on('py-mock@2.0.0:',      type=('build', 'run'))
     depends_on('py-numpy@1.11.0:',    type=('build', 'run'))
-    depends_on('py-protobuf@3.0.0b2', type=('build', 'run'), when='@:1.2.0')
-    depends_on('py-protobuf@3.3.0:',  type=('build', 'run'), when='@1.3.0:1.6.0')        # noqa: E501
-    depends_on('py-protobuf@3.6.0',   type=('build', 'run'), when='@1.8.0:')
+    #depends_on('py-protobuf@3.0.0b2', type=('build', 'run'), when='@:1.2.0')
+    #depends_on('py-protobuf@3.3.0:',  type=('build', 'run'), when='@1.3.0:1.6.0')        # noqa: E501
+    #depends_on('py-protobuf@3.6.0',   type=('build', 'run'), when='@1.8.0:')
+    depends_on('py-protobuf@3.8.0:', type=('build', 'run'), when='@2.1:')
     depends_on('py-setuptools',       type=('build', 'run'))
     depends_on('py-six@1.10.0:',      type=('build', 'run'))
     depends_on('py-termcolor@1.1.0:', type=('build', 'run'), when='@1.6.0:')
