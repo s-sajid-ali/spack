@@ -14,8 +14,10 @@ class PyTensorflow(Package):
     homepage = "https://www.tensorflow.org"
     url      = "https://github.com/tensorflow/tensorflow/archive/v0.10.0.tar.gz"
 
+    import_modules = ['tensorflow']
 
-    version('2.1.0-rc0',    sha256='674cc90223f1d6b7fa2969e82636a630ce453e48a9dec39d73d6dba2fd3fd243')
+    version('2.1.0',  sha256='638e541a4981f52c69da4a311815f1e7989bf1d67a41d204511966e1daed14f7')
+    #version('2.1.0-rc0',    sha256='674cc90223f1d6b7fa2969e82636a630ce453e48a9dec39d73d6dba2fd3fd243')
     version('2.0.0',        sha256='49b5f0495cd681cbcb5296a4476853d4aea19a43bdd9f179c928a977308a0617')
     version('1.15.0',       sha256='a5d49c00a175a61da7431a9b289747d62339be9cf37600330ad63b611f7f5dc9')
     version('1.14.0',       sha256='aa2a6a1daafa3af66807cfe0bc77bfe1144a9a53df9a96bab52e3e575b3047ed', preferred=True)
@@ -47,6 +49,7 @@ class PyTensorflow(Package):
     depends_on('swig', type='build')
 
     # old tensorflow needs old bazel
+    depends_on('bazel@0.29.1',   type='build', when='@2.1.0')
     depends_on('bazel@0.27.1:0.29.1',   type='build', when='@2.1.0-rc0')
     depends_on('bazel@0.24.1:0.26.1',   type='build', when='@1.15.0,2.0.0')
     depends_on('bazel@0.24.1:0.25.2',   type='build', when='@1.14.0')
@@ -302,9 +305,9 @@ class PyTensorflow(Package):
             # For an explanation for ABI build option, see https://www.tensorflow.org/install/source#bazel_build_options
             # Recently noticed that TF_NEED_AWS etc environment variables aren't recognized by configure.py anymore.
             # So, explicitly disable them via bazel options.
-            if self.spec.satisfies('@2.1.0-rc0'):
+            if self.spec.satisfies('@2.1.0'):
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
-                    '--copt=-mavx','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
+                    '--copt=-mavx','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=cuda', '--config=noaws', '--config=nogcp',\
                     '--config=nohdfs',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
@@ -312,22 +315,22 @@ class PyTensorflow(Package):
                     '//tensorflow/tools/pip_package:build_pip_package')
             else:
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
-                    '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
+                    '--copt=-mavx','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=cuda', '--config=noaws', '--config=nogcp',\
                     '--config=nohdfs', '--config=noignite', '--config=nokafka',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '//tensorflow/tools/pip_package:build_pip_package')
         else:
-            if self.spec.satisfies('@2.1.0-rc0'):
+            if self.spec.satisfies('@2.1.0'):
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
-                    '--copt=-mavx','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
+                    '--copt=-mavx','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp', '--config=nohdfs',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '--define=tensorflow_mkldnn_contraction_kernel=0',\
                     '//tensorflow/tools/pip_package:build_pip_package')
             else:
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
-                    '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
+                    '--copt=-mavx','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp',\
                     '--config=nohdfs', '--config=noignite', '--config=nokafka',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
