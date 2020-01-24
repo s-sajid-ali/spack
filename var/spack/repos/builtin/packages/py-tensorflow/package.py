@@ -186,7 +186,7 @@ class PyTensorflow(Package):
         #           subprocess.call(['stat', '--file-system', '--format=%T', tmp_path]) # noqa: E501
         #       to not be nfs. This is only valid for Linux and we'd like to
         #       stay at least also OSX compatible
-        tmp_path = '/cache/spack/tf'
+        tmp_path = '/home/sajid/tf_build/'
 #        tmp_path = env['SPACK_TMPDIR'] '/tmp/spack') + '/tf' #TODO
         mkdirp(tmp_path)
         env.set('TEST_TMPDIR', tmp_path)
