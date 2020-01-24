@@ -321,6 +321,8 @@ class PyTensorflow(Package):
                     '--copt=-mavx512f','--copt=-mavx512pf','--copt=-mavx512er','--copt=-mavx512cd',\
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp', '--config=nohdfs',\
+                    '--verbose_failures','--subcommands=pretty_print',\
+                    '--explain=explainlogfile.txt','--verbose_explanations',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '--define=tensorflow_mkldnn_contraction_kernel=0',\
                     '//tensorflow/tools/pip_package:build_pip_package')
