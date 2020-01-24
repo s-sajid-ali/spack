@@ -59,7 +59,7 @@ class PyTensorflow(Package):
     depends_on('bazel@0.4.4:0.4.999',   type='build', when='@1.0.0:1.1.0')
     depends_on('bazel@0.3.1:0.4.999',   type='build', when='@:1.0.0')
 
-    depends_on('py-absl-py@0.1.6',       type=('build', 'run'), when='@1.5.0:')
+    depends_on('py-absl-py@0.7.0',       type=('build', 'run'))
     depends_on('py-astor@0.1.6:',        type=('build', 'run'), when='@1.6.0:')
     depends_on('py-enum34@1.1.6:',       type=('build', 'run'), when='@1.5.0: ^python@:3.3')
     #depends_on('py-future@0.17.1:',      type=('build', 'run'), when='@1.14.0:')
@@ -69,7 +69,7 @@ class PyTensorflow(Package):
     depends_on('py-h5py',                type=('build', 'run'), when='@1.12.0:')
     depends_on('py-keras-applications@1.0.6:',  type=('build', 'run'), when='@1.12.0:')  # noqa: E501
     depends_on('py-keras-preprocessing@1.0.5:', type=('build', 'run'), when='@1.12.0:')  # noqa: E501
-    #depends_on('py-mock@2.0.0:',      type=('build', 'run'))
+    depends_on('py-mock@2.0.0:',      type=('build', 'run'))
     depends_on('py-numpy@1.11.0:',    type=('build', 'run'))
     depends_on('py-protobuf@3.0.0b2', type=('build', 'run'), when='@:1.2.0')
     depends_on('py-protobuf@3.3.0:',  type=('build', 'run'), when='@1.3.0:1.6.0')        # noqa: E501
