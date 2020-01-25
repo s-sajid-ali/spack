@@ -71,7 +71,7 @@ class PyTensorflow(Package):
     depends_on('py-h5py',                type=('build', 'run'), when='@1.12.0:')
     depends_on('py-keras-applications@1.0.6:',  type=('build', 'run'), when='@1.12.0:')  # noqa: E501
     depends_on('py-keras-preprocessing@1.0.5:', type=('build', 'run'), when='@1.12.0:')  # noqa: E501
-    #depends_on('py-mock@2.0.0:',      type=('build', 'run'))
+    depends_on('py-mock@2.0.0:',      type=('build', 'run'))
     depends_on('py-numpy@1.11.0:',    type=('build', 'run'))
     depends_on('py-protobuf@3.0.0b2', type=('build', 'run'), when='@:1.2.0')
     depends_on('py-protobuf@3.3.0:',  type=('build', 'run'), when='@1.3.0:1.6.0')        # noqa: E501
