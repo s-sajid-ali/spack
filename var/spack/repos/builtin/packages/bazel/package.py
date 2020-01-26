@@ -99,7 +99,7 @@ class Bazel(Package):
     patch('bazelconfiguration-0.3.patch', when='@:0.13')
 
     # Inject include paths
-    patch('unix_cc_configure-0.15.patch',  when='@0.15:')
+    #patch('unix_cc_configure-0.15.patch',  when='@0.15:')
     patch('unix_cc_configure-0.10.patch',  when='@0.10:0.14')
     patch('unix_cc_configure-0.5.3.patch', when='@0.5.3:0.9')
     patch('cc_configure-0.5.0.patch', when='@0.5.0:0.5.2')
