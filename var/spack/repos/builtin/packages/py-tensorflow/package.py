@@ -308,6 +308,8 @@ class PyTensorflow(Package):
             if self.spec.satisfies('@2.1.0') or self.spec.satisfies('@1.14.0'):
 
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
+                    '--copt=-march=native',\
+                    '--copt=-mavx512f','--copt=-mavx512vl','--copt=-mavx512bw','--copt=-mavx512dq','--copt=-mavx512cd',\
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=cuda', '--config=noaws', '--config=nogcp',\
                     '--config=nohdfs',\
