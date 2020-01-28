@@ -215,7 +215,7 @@ class PyTensorflow(Package):
                         r'if True',
                         'configure.py')
 
-       # version dependent fixes
+        # version dependent fixes
         if self.spec.satisfies('@1.3.0:1.5.0'):
             # checksum for protobuf that bazel downloads (@github) changed,
             # comment out to avoid error better solution: replace wrong
@@ -297,6 +297,10 @@ class PyTensorflow(Package):
                         'build --action_env LD_LIBRARY_PATH="'+slibs+'"',
                         '.tf_configure.bazelrc')
 
+            filter_file('build:cuda --define using_cuda_nvcc=true',
+                        'build:cuda --define using_cuda_nvcc=false',
+                        '.tf_configure.bazelrc')
+
 
     def install(self, spec, prefix):
         
@@ -313,8 +317,11 @@ class PyTensorflow(Package):
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=cuda', '--config=noaws', '--config=nogcp',\
                     '--config=nohdfs',\
+                    '--verbose_failures','--subcommands=pretty_print',\
+                    '--explain=explainlogfile.txt','--verbose_explanations',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '--define=tensorflow_mkldnn_contraction_kernel=0',\
+                    '--config=using_cuda','--define=using_cuda_nvcc=false',\
                     '//tensorflow/tools/pip_package:build_pip_package')
             else:
                 bazel('build', '--jobs={0}'.format(make_jobs), '-c', 'opt',\
@@ -330,10 +337,10 @@ class PyTensorflow(Package):
                     '--copt=-mavx512f','--copt=-mavx512vl','--copt=-mavx512bw','--copt=-mavx512dq','--copt=-mavx512cd',\
                     '--copt=-mavx','--copt=-mavx2','--copt=-mfma','--copt=-msse4.1','--copt=-msse4.2',\
                     '--config=noaws', '--config=nogcp', '--config=nohdfs',\
-                    '--verbose_failures',
-                    '--subcommands=pretty_print',
-                    '--explain=explainlogfile.txt',
-                    '--verbose_explanations',
+                    '--verbose_failures',\
+                    '--subcommands=pretty_print',\
+                    '--explain=explainlogfile.txt',\
+                    '--verbose_explanations',\
                     '--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0',\
                     '--define=tensorflow_mkldnn_contraction_kernel=0',\
                     '//tensorflow/tools/pip_package:build_pip_package')
