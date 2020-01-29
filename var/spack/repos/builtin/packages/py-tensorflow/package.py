@@ -28,6 +28,7 @@ class PyTensorflow(Package):
     depends_on('swig',                          type='build')
 
     # old tensorflow needs old bazel
+    depends_on('bazel@0.29.1', type='build', when='@2.1:')
     depends_on('bazel@0.19.2',                  type='build',          when='@1.13.1')
     depends_on('bazel@0.15.0',                  type='build',          when='@1.12.0')
     depends_on('bazel@0.10.0',                  type='build',          when='@1.8.0:1.9.0')
@@ -131,7 +132,7 @@ class PyTensorflow(Package):
             ld_lib_path = env.get('LD_LIBRARY_PATH')
             bazel('-c', 'opt', '--copt=-mavx2', '--copt=-msse4.2', '--copt=-mfma', '--copt=-mavx', '--copt=-mfpmath=both', '--config=cuda', '--action_env="LD_LIBRARY_PATH=%s"' % ld_lib_path,  '//tensorflow/tools/pip_package:build_pip_package')
         else:
-            bazel('-c', 'opt', '--copt=-mavx2', '--copt=-msse4.2', '--copt=-mfma', '--copt=-mavx', '--copt=-mfpmath=both', '--config=mkl', '//tensorflow/tools/pip_package:build_pip_package')
+            bazel('-c', 'opt', '--copt="-H"', '--copt=-mavx2', '--copt=-msse4.2', '--copt=-mfma', '--copt=-mavx', '--copt=-mfpmath=both', '--config=mkl', '//tensorflow/tools/pip_package:build_pip_package')
 
         build_pip_package = Executable('bazel-bin/tensorflow/tools/pip_package/build_pip_package')
         build_pip_package('.')
