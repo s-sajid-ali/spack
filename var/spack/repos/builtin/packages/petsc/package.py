@@ -333,6 +333,10 @@ class Petsc(Package):
 
         python('configure', '--prefix=%s' % prefix, *options)
 
+        if self.spec.satisfies('%intel@19.0.4'):
+            print("Causes a compiler error for anything greater than O1")
+            make("-f gmakefile 'PCC_FLAGS=-O1 -fPIC' %s/obj/mat/impls/aij/mpi/fdmpiaij.o" % PETSC_ARCH)
+
         # PETSc has its own way of doing parallel make.
         make('MAKE_NP=%s' % make_jobs, parallel=False)
         make("install")
