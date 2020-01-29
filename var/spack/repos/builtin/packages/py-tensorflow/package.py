@@ -8,7 +8,7 @@ from glob import glob
 import os
 
 
-class Tensorflow(Package):
+class PyTensorflow(Package):
     """TensorFlow is an Open Source Software Library for Machine Intelligence"""
 
     homepage = "https://www.tensorflow.org"
