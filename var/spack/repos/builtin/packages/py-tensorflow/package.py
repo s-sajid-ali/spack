@@ -18,6 +18,10 @@ class PyTensorflow(Package, CudaPackage):
     maintainers = ['adamjstewart']
     import_modules = ['tensorflow']
 
+    # Don't add RPATHs to this package for the full build DAG.
+    # only add for immediate deps.
+    transitive_rpaths = False
+
     version('2.1.0',  sha256='638e541a4981f52c69da4a311815f1e7989bf1d67a41d204511966e1daed14f7')
     version('2.0.1',  sha256='29197d30923b9670992ee4b9c6161f50c7452e9a4158c720746e846080ac245a')
     version('2.0.0',  sha256='49b5f0495cd681cbcb5296a4476853d4aea19a43bdd9f179c928a977308a0617')
