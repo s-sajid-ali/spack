@@ -11,14 +11,30 @@ class Libconfig(AutotoolsPackage):
 
     homepage = "http://www.hyperrealm.com/libconfig/"
     url      = "https://github.com/hyperrealm/libconfig/archive/v1.5.tar.gz"
+    git      = "https://github.com/hyperrealm/libconfig.git"
 
     force_autoreconf = True
 
+    version('master', branch='master')
     version('1.7.2', sha256='f67ac44099916ae260a6c9e290a90809e7d782d96cdd462cac656ebc5b685726')
     version('1.7.1', sha256='d288e6ae817f4ef78df43cdb2647f768dc97899ee82fcc41f857e8eb9fd7fbdb')
     version('1.5',   sha256='cae5c02361d8a9b2bb26946c64f089d2e5e599972f386203fbc48975c0d885c8')
+
+    variant('docs', default=False,
+            description='Build documentation')
 
     depends_on('m4', type=('build'))
     depends_on('autoconf', type=('build'))
     depends_on('automake', type=('build'))
     depends_on('libtool', type=('build'))
+
+    conflicts('+docs', when='@:1.7.2',
+            msg='--disable-doc was added after 1.7.2')
+
+    def configure_args(self):
+        args = []
+
+        if '~docs' in self.spec:
+            args.append('--disable-doc')
+
+        return args
