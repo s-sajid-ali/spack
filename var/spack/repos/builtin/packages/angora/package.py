@@ -50,3 +50,8 @@ class Angora(AutotoolsPackage):
                     self.spec['libconfig'].prefix)
 
         return args
+
+    def flag_handler(self, name, flags):
+        flags.append(self.compiler.cxx98_flag)
+        return (None, None, flags)
+    
