@@ -23,6 +23,9 @@ class Angora(AutotoolsPackage):
     depends_on('hdf5')
     depends_on('mpi')
 
+    depends_on("automake", when="@master")
+    depends_on("autoconf", when="@master")
+
     def configure_args(self):
         args = []
         
