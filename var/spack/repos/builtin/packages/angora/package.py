@@ -19,8 +19,8 @@ class Angora(AutotoolsPackage):
 
     depends_on('libconfig')
     depends_on('blitz')
-    depends_on('boost')
-    depends_on('hdf5')
+    depends_on('boost+mpi')
+    depends_on('hdf5+cxx')
     depends_on('mpi')
 
     depends_on("automake@1.14.1", when="@master")
@@ -35,18 +35,18 @@ class Angora(AutotoolsPackage):
         args = []
         
         args.append('--with-mpi=%s' %
-                    self.spec['mpi'].prefix.lib)
+                    self.spec['mpi'].prefix)
 
         args.append('--with-hdf5=%s' %
-                    self.spec['hdf5'].prefix.lib)
+                    self.spec['hdf5'].prefix)
 
         args.append('--with-blitz=%s' %
-                    self.spec['blitz'].prefix.lib)
+                    self.spec['blitz'].prefix)
 
         args.append('--with-boost=%s' %
-                    self.spec['boost'].prefix.lib)
+                    self.spec['boost'].prefix)
 
         args.append('--with-config=%s' %
-                    self.spec['libconfig'].prefix.lib)
+                    self.spec['libconfig'].prefix)
 
         return args
