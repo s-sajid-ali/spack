@@ -14,6 +14,7 @@ class Angora(AutotoolsPackage):
     url      = "https://bitbucket.org/backmanlab/angora/get/0.22.5.tar.gz"
     git      = "https://bitbucket.org/backmanlab/angora.git"
 
+    version('master', branch='master')
     version('0.22.5', sha256='f95e4a8a7a570f5c4e093ec04fdf89ee352a4cbd4f3f4d36a288f3950d2af602')
 
     depends_on('libconfig')
