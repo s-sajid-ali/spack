@@ -29,8 +29,8 @@ class Petsc(Package):
     version('3.12.1', sha256='b72d895d0f4a79acb13ebc782b47b26d10d4e5706d399f533afcd5b3dba13737')
     version('3.12.0', sha256='ba9ecf69783c7ebf05bd1c91dd1d4b38bf09b7a2d5f9a774aa6bb46deff7cb14')
     # Fake version to install the TS bugfix on 3.11 branch !
-    version('3.11.5', branch='hongzh/fix-computejacobian')
-    version('3.11.4', sha256='319cb5a875a692a67fe5b1b90009ba8f182e21921ae645d38106544aff20c3c1')
+    version('3.11.4', branch='hongzh/fix-computejacobian')
+    #version('3.11.4', sha256='319cb5a875a692a67fe5b1b90009ba8f182e21921ae645d38106544aff20c3c1')
     version('3.11.3', sha256='199ad9650a9f58603b49e7fff7cd003ceb03aa231e5d37d0bf0496c6348eca81')
     version('3.11.2', sha256='4d244dd7d1565d6534e776445fcf6977a6ee2a8bb2be4a36ac1e0fc1f9ad9cfa')
     version('3.11.1', sha256='cb627f99f7ce1540ebbbf338189f89a5f1ecf3ab3b5b0e357f9e46c209f1fb23')
