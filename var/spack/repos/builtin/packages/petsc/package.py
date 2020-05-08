@@ -158,7 +158,8 @@ class Petsc(Package):
     depends_on('hypre@2.14:~internal-superlu+int64', when='@3.9+hypre+mpi~complex+int64')
     depends_on('hypre@xsdk-0.2.0~internal-superlu+int64', when='@xsdk-0.2.0+hypre+mpi~complex+int64')
     depends_on('hypre@xsdk-0.2.0~internal-superlu~int64', when='@xsdk-0.2.0+hypre+mpi~complex~int64')
-    depends_on('hypre@develop~internal-superlu+int64', when='@develop+hypre+mpi~complex+int64')
+    # Hypre develop changes symbol names :O
+    depends_on('hypre@2.14:~internal-superlu+int64', when='@develop+hypre+mpi~complex+int64')
     depends_on('hypre@develop~internal-superlu~int64', when='@develop+hypre+mpi~complex~int64')
     depends_on('superlu-dist@:4.3~int64', when='@3.4.4:3.6.4+superlu-dist+mpi~int64')
     depends_on('superlu-dist@:4.3+int64', when='@3.4.4:3.6.4+superlu-dist+mpi+int64')
