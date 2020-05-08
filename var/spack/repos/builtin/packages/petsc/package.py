@@ -21,7 +21,7 @@ class Petsc(Package):
 
     maintainers = ['balay', 'barrysmith', 'jedbrown']
 
-    version('develop', branch='master')
+    version('develop', branch='hongzh/fix-computejacobian')
     version('xsdk-0.2.0', tag='xsdk-0.2.0')
 
     # Fake version to install the TS bugfix on 3.11 branch !
