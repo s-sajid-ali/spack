@@ -68,8 +68,10 @@ class Petsc(Package):
             description='Enables the build of shared libraries')
     variant('mpi',     default=True,  description='Activates MPI support')
     variant('cuda',    default=False, description='Activates CUDA support')
-    variant('double',  default=True,
-            description='Switches between single and double precision')
+    variant('precision',  default='double',
+            description='Switches between single and double precision',
+            values=('single', 'double', 'quad'),
+            multi=False)
     variant('complex', default=False, description='Build with complex numbers')
     variant('debug',   default=False, description='Compile in debug mode')
 
@@ -243,8 +245,7 @@ class Petsc(Package):
                    'CXXFLAGS=%s' % ' '.join(spec.compiler_flags['cxxflags'])]
         options.extend(self.mpi_dependent_options())
         options.extend([
-            '--with-precision=%s' % (
-                'double' if '+double' in spec else 'single'),
+            '--with-precision=%s' % (spec.variants['precision'].value),
             '--with-scalar-type=%s' % (
                 'complex' if '+complex' in spec else 'real'),
             '--with-shared-libraries=%s' % ('1' if '+shared' in spec else '0'),
