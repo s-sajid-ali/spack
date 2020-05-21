@@ -297,7 +297,7 @@ class Petsc(Package):
             ])
 
         # Activates library support if needed
-        for library in ('cuda', 'metis', 'hypre', 'parmetis',
+        for library in ('metis', 'hypre', 'parmetis',
                         'mumps', 'trilinos', 'fftw', 'valgrind'):
             options.append(
                 '--with-{library}={value}'.format(
@@ -309,6 +309,8 @@ class Petsc(Package):
                     '--with-{library}-dir={path}'.format(
                         library=library, path=spec[library].prefix)
                 )
+        if '+cuda' in spec :
+            options.append('--with-cudac=%s' % spec['cuda'].prefix.bin.nvcc)
 
         # PETSc does not pick up SuperluDist from the dir as they look for
         # superlu_dist_4.1.a
