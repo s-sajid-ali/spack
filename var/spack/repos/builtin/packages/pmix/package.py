@@ -59,6 +59,10 @@ class Pmix(AutotoolsPackage):
             description="allow a PMIx server to request services from "
             "a system-level REST server")
 
+    variant('python',
+            default=False,
+            description="Enable python bindigs")
+
     depends_on('libevent@2.0.20:2.0.22,2.1.8')
     depends_on('hwloc@1.11.0:1.11.99,2.0.1:', when='@3.0.0:')
     depends_on("m4", type=("build"), when="@master")
@@ -68,8 +72,12 @@ class Pmix(AutotoolsPackage):
     depends_on("perl", type=("build"), when="@master")
     depends_on('curl', when="+restful")
     depends_on('jansson@2.11:', when="+restful")
+    depends_on('python', when="+python")
+    depends_on('py-cython', when="+python")
 
     conflicts('@:3.9.9', when='+restful')
+
+    extends('python', when='+python')
 
     def autoreconf(self, spec, prefix):
         """Only needed when building from git checkout"""
@@ -92,6 +100,11 @@ class Pmix(AutotoolsPackage):
             config_args.append('--enable-pmi-backward-compatibility')
         else:
             config_args.append('--disable-pmi-backward-compatibility')
+
+        if '+python' in self.spec:
+            config_args.append('--enable-python-bindings')
+        else:
+            config_args.append('--disable-python-bindings')
 
         # libevent support
         config_args.append(
