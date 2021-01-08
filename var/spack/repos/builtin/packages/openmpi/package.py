@@ -658,6 +658,9 @@ class Openmpi(AutotoolsPackage):
             else:
                 config_args.append('--without-cray-xpmem')
 
+        if 'fabrics=ucx' in spec and '^ucx+xpmem' in spec:
+            config_args.append('--with-xpmem')
+
         # Schedulers
         if 'schedulers=auto' not in spec:
             config_args.extend(self.with_or_without('schedulers'))
