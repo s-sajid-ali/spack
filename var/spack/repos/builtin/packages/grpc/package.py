@@ -13,6 +13,7 @@ class Grpc(CMakePackage):
     homepage = "https://grpc.io"
     url      = "https://github.com/grpc/grpc/archive/v1.30.0.tar.gz"
 
+    version('1.35.0', sha256='27dd2fc5c9809ddcde8eb6fa1fa278a3486566dfc28335fca13eb8df8bd3b958')
     version('1.30.0', sha256='419dba362eaf8f1d36849ceee17c3e2ff8ff12ac666b42d3ff02a164ebe090e9')
     version('1.29.1', sha256='0343e6dbde66e9a31c691f2f61e98d79f3584e03a11511fad3f10e3667832a45')
     version('1.29.0', sha256='c0a6b40a222e51bea5c53090e9e65de46aee2d84c7fa7638f09cb68c3331b983')
@@ -36,6 +37,7 @@ class Grpc(CMakePackage):
     depends_on('zlib')
     depends_on('c-ares')
     depends_on('abseil-cpp', when='@1.27:')
+    depends_on('re2', when='@1.34:')
 
     def cmake_args(self):
         args = [
