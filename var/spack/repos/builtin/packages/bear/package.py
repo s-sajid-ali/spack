@@ -18,9 +18,13 @@ class Bear(CMakePackage):
 
     depends_on('python')
     depends_on('cmake@2.8:', type='build')
-    depends_on('cmake@3.12:', type='build', when='@3.0.0:')
+    depends_on('cmake@3.14', type='build', when='@3.0.0:')
     depends_on('pkg-config', type='build', when='@3.0.0:')  
     depends_on('grpc@1.26:', when='@3.0.0:')
     depends_on('fmt@6.2:', when='@3.0.0:')
     depends_on('spdlog@1.5:', when='@3.0.0:')
     depends_on('nlohmann-json@3.10.4:', when='@3.0.0:')
+
+    def cmake_args(self):
+         args = ['-DCMAKE_INSTALL_LIBDIR=lib']
+         return args
