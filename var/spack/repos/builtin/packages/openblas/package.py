@@ -52,6 +52,7 @@ class Openblas(MakefilePackage):
     variant('consistent_fpcsr', default=False, description='Synchronize FP CSR between threads (x86/x86_64 only)')
     variant('bignuma', default=False, description='Enable experimental support for up to 1024 CPUs/Cores and 128 numa nodes')
     variant('symbol_suffix', default='none', description='Set a symbol suffix')
+    variant('fortran', default=False, when='@0.3.21:', description='build without fortran compiler')
 
     variant('locking', default=True, description='Build with thread safety')
     variant(
@@ -155,9 +156,9 @@ class Openblas(MakefilePackage):
         # As of 06/2016 there is no mechanism to specify that packages which
         # depends on Blas/Lapack need C or/and Fortran symbols. For now
         # require both.
-        if self.compiler.fc is None:
+        if self.compiler.fc is None and self.spec.satisfies('+fortran'):
             raise InstallError(
-                'OpenBLAS requires both C and Fortran compilers!'
+                'OpenBLAS requires both C and Fortran compilers with +fortran'
             )
 
     @staticmethod
@@ -262,9 +263,12 @@ class Openblas(MakefilePackage):
         # $SPACK_ROOT/lib/spack/env/<compiler> have symlinks with reasonable
         # names and hack them inside lib/spack/spack/compilers/<compiler>.py
         make_defs = [
-            'CC={0}'.format(spack_cc),
-            'FC={0}'.format(spack_fc),
-        ]
+            'CC={0}'.format(spack_cc)]
+
+        if self.spec.satisfies('+fortran'):
+            make_defs.append('FC={0}'.format(spack_fc))
+        else:
+            make_defs.append('NOFORTRAN=1')
 
         # force OpenBLAS to use externally defined parallel build
         if self.spec.version < Version('0.3'):
