@@ -451,7 +451,7 @@ class MakefileBuilder(spack.build_systems.makefile.MakefileBuilder):
         # When mixing compilers make sure that
         # $SPACK_ROOT/lib/spack/env/<compiler> have symlinks with reasonable
         # names and hack them inside lib/spack/spack/compilers/<compiler>.py
-        make_defs = ["CC={0}".format(spack_cc)]
+        make_defs = ["CC={0}".format(str(spack_cc)+str(" ")+str(self.spec.compiler_flags["cflags"][-1]))]
         if "~fortran" not in self.spec:
             make_defs += ["FC={0}".format(spack_fc)]
 
