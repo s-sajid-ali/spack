@@ -6,7 +6,7 @@ import inspect
 import os
 import re
 import shutil
-from typing import Any, Iterable, List, Mapping, Optional
+from typing import Iterable, List, Mapping, Optional
 
 import archspec
 
@@ -32,7 +32,7 @@ from spack.util.prefix import Prefix
 from ._checks import BaseBuilder, execute_install_time_tests
 
 
-def _flatten_dict(dictionary: Mapping[Any, Any]) -> Iterable[str]:
+def _flatten_dict(dictionary: Mapping[object, object]) -> Iterable[str]:
     """Iterable that yields KEY=VALUE paths through a dictionary.
 
     Args:
@@ -55,7 +55,7 @@ class PythonExtension(spack.package_base.PackageBase):
     maintainers("adamjstewart")
 
     @property
-    def import_modules(self) -> List[str]:
+    def import_modules(self) -> Iterable[object]:
         """Names of modules that the Python package provides.
 
         These are used to test whether or not the installation succeeded.
@@ -70,7 +70,7 @@ class PythonExtension(spack.package_base.PackageBase):
         detected, this property can be overridden by the package.
 
         Returns:
-            list: list of strings of module names
+            List of strings of module names.
         """
         modules = []
         pkg = self.spec["python"].package
@@ -107,14 +107,14 @@ class PythonExtension(spack.package_base.PackageBase):
         return modules
 
     @property
-    def skip_modules(self) -> List[str]:
+    def skip_modules(self) -> Iterable[object]:
         """Names of modules that should be skipped when running tests.
 
         These are a subset of import_modules. If a module has submodules,
         they are skipped as well (meaning a.b is skipped if a is contained).
 
         Returns:
-            list: list of strings of module names
+            List of strings of module names.
         """
         return []
 
@@ -323,20 +323,20 @@ class PythonPackage(PythonExtension):
     def homepage(cls) -> Optional[str]:  # type: ignore[override]
         if cls.pypi:
             name = cls.pypi.split("/")[0]
-            return "https://pypi.org/project/" + name + "/"
+            return f"https://pypi.org/project/{name}/"
         return None
 
     @lang.classproperty
     def url(cls) -> Optional[str]:
         if cls.pypi:
-            return "https://files.pythonhosted.org/packages/source/" + cls.pypi[0] + "/" + cls.pypi
+            return f"https://files.pythonhosted.org/packages/source/{cls.pypi[0]}/{cls.pypi}"
         return None
 
     @lang.classproperty
     def list_url(cls) -> Optional[str]:  # type: ignore[override]
         if cls.pypi:
             name = cls.pypi.split("/")[0]
-            return "https://pypi.org/simple/" + name + "/"
+            return f"https://pypi.org/simple/{name}/"
         return None
 
     @property
@@ -424,11 +424,11 @@ class PythonPipBuilder(BaseBuilder):
         """
         return self.pkg.stage.source_path
 
-    def config_settings(self, spec: Spec, prefix: Prefix) -> Mapping[Any, Any]:
+    def config_settings(self, spec: Spec, prefix: Prefix) -> Mapping[object, object]:
         """Configuration settings to be passed to the PEP 517 build backend.
 
         Requires pip 22.1 or newer for keys that appear only a single time,
-        or 23.1 or newer if the same key must appear multiple times.
+        or pip 23.1 or newer if the same key appears multiple times.
 
         Args:
             spec: Build spec.
@@ -439,46 +439,46 @@ class PythonPipBuilder(BaseBuilder):
         """
         return {}
 
-    def install_options(self, spec: Spec, prefix: Prefix) -> List[str]:
+    def install_options(self, spec: Spec, prefix: Prefix) -> Iterable[object]:
         """Extra arguments to be supplied to the setup.py install command.
 
         Requires pip 23.0 or older.
 
         Args:
-            spec (spack.spec.Spec): build spec
-            prefix (spack.util.prefix.Prefix): installation prefix
+            spec: Build spec.
+            prefix: Installation prefix.
 
         Returns:
-            list: list of options
+            List of options.
         """
         return []
 
-    def global_options(self, spec: Spec, prefix: Prefix) -> List[str]:
+    def global_options(self, spec: Spec, prefix: Prefix) -> Iterable[object]:
         """Extra global options to be supplied to the setup.py call before the install
         or bdist_wheel command.
 
         Deprecated in pip 23.1.
 
         Args:
-            spec (spack.spec.Spec): build spec
-            prefix (spack.util.prefix.Prefix): installation prefix
+            spec: Build spec.
+            prefix: Installation prefix.
 
         Returns:
-            list: list of options
+            List of options.
         """
         return []
 
     def install(self, pkg: "PythonPackage", spec: Spec, prefix: Prefix) -> None:
         """Install everything from build directory."""
 
-        args = PythonPipBuilder.std_args(pkg) + ["--prefix=" + prefix]
+        args = PythonPipBuilder.std_args(pkg) + [f"--prefix={prefix}"]
 
         for setting in _flatten_dict(self.config_settings(spec, prefix)):
-            args.append("--config-settings=" + setting)
+            args.append(f"--config-settings={setting}")
         for option in self.install_options(spec, prefix):
-            args.append("--install-option=" + option)
+            args.append(f"--install-option={option}")
         for option in self.global_options(spec, prefix):
-            args.append("--global-option=" + option)
+            args.append(f"--global-option={option}")
 
         if pkg.stage.archive_file and pkg.stage.archive_file.endswith(".whl"):
             args.append(pkg.stage.archive_file)
