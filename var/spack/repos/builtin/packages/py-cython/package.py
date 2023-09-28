@@ -13,6 +13,7 @@ class PyCython(PythonPackage):
     pypi = "cython/Cython-0.29.21.tar.gz"
     tags = ["build-tools"]
 
+    version("3.0.2", sha256="9594818dca8bb22ae6580c5222da2bc5cc32334350bd2d294a00d8669bcc61b5")
     version("3.0.0", sha256="350b18f9673e63101dbbfcf774ee2f57c20ac4636d255741d76ca79016b1bd82")
     version(
         "3.0.0a9",
