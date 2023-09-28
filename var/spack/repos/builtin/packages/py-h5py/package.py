@@ -47,6 +47,7 @@ class PyH5py(PythonPackage):
     depends_on("py-cython@0.29:0", type=("build"), when="@3:")
     depends_on("py-cython@0.29.14:0", type=("build"), when="@3:3.7 ^python@3.8.0:3.8")
     depends_on("py-cython@0.29.15:0", type=("build"), when="@3:3.7 ^python@3.9.0:")
+    depends_on("py-cython@3.0.0", type="build", when="@master")
     depends_on("py-pkgconfig", type="build")
     depends_on("py-setuptools", type="build")
     depends_on("py-setuptools@61:", type="build", when="@3.8.0:")
@@ -71,6 +72,7 @@ class PyH5py(PythonPackage):
     depends_on("mpi", when="+mpi")
     depends_on("py-mpi4py", when="@:2 +mpi", type=("build", "run"))
     depends_on("py-mpi4py@3.0.2:", when="@3: +mpi", type=("build", "run"))
+    depends_on("py-mpi4py@master", when="@master +mpi", type=("build", "run"))
 
     def flag_handler(self, name, flags):
         if name == "cflags":
