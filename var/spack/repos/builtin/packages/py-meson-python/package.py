@@ -17,6 +17,7 @@ class PyMesonPython(PythonPackage):
 
     license("MIT")
 
+    version("0.16.0", sha256="9068c17e36c89d6c7ff709fffb2a8a9925e8cd0b02629728e5ceaf2ec505cb5f")
     version("0.15.0", sha256="fddb73eecd49e89c1c41c87937cd89c2d0b65a1c63ba28238681d4bd9484d26f")
     version("0.13.1", sha256="63b3170001425c42fa4cfedadb9051cbd28925ff8eed7c40d36ba0099e3c7618")
     version("0.12.0", sha256="8cb159a8093a2e73cfa897f8092ec93b74e3842f94dff7fde381c6fe0e0b064d")

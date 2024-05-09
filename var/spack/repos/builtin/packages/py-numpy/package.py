@@ -22,6 +22,7 @@ class PyNumpy(PythonPackage):
     license("BSD-3-Clause")
 
     version("main", branch="main")
+    version("2.0.0rc1", sha256="f0e169ec6cbc1b8e5f6a235845a80961f76f88352082213a1728a0967a761ad2")
     version("1.26.4", sha256="2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010")
     version("1.26.3", sha256="697df43e2b6310ecc9d95f05d5ef20eacc09c7c4ecc9da3f235d39e71b7da1e4")
     version("1.26.2", sha256="f65738447676ab5777f11e6bbbdb8ce11b785e105f690bc45966574816b6d3ea")
@@ -392,7 +393,7 @@ class PyNumpy(PythonPackage):
     def set_blas_lapack(self):
         self.blas_lapack_site_cfg()
 
-    @when("@1.26:")
+    @when("@1.26:2.0.0rc1")
     def setup_build_environment(self, env):
         if self.spec.satisfies("%apple-clang@15:"):
             # https://github.com/scipy/scipy/issues/19357
